@@ -21,10 +21,10 @@ The goal of this project is to practice working with GUI elements and the GTK li
 // create a stuct with GTKwidget variables.
 // these variables will make the compose the calculator.
 typedef struct {
-        
-    GtkWidget *window;
-    GtkWidget *grid;
-    GtkWidget *button[17];
+	
+    	GtkWidget *window;
+    	GtkWidget *grid;
+    	GtkWidget *button[17];
 
 }calc;
     
@@ -48,10 +48,10 @@ int count = 0;
 // Function to connect button to signal and compute the answer of selected user input.
 static void calculate(GtkButton *button, gpointer data){
 
-    // create text box to present calculation.
+    	// create text box to present calculation.
 	const gchar* text = gtk_button_get_label(button);
 
-    // select operation based off user interaction
+    	// select operation based off user interaction
 	if( (strcmp("+", text)==0) ||   (strcmp("-", text)==0) ||  (strcmp("/", text)==0) ||  (strcmp("x", text)==0) ||  (strcmp("=", text)==0) ){
 		
 		num[count] = atof(input_buffer);
@@ -72,7 +72,7 @@ static void calculate(GtkButton *button, gpointer data){
 		}
 	}
 
-    // perform selected operation on the respective selected numbers.
+    	// perform selected operation on the respective selected numbers.
 	if(strcmp("=",text)==0){
 		int x = sizeof(num)/sizeof(num[0]);
 		
@@ -87,62 +87,66 @@ static void calculate(GtkButton *button, gpointer data){
 		}
 
 		if(sub){
-				if(result == 0.0){
-					result = num[0]*2;
+			
+			if(result == 0.0){
+				result = num[0]*2;
 				}
+			
 			for(int i=0; i<x; i++){
 				result -= num[i];
 			}
 		}
-	
+
 		if(mul){
 			result = num[0]*num[1];
 		}
 
-        // reset the variables.
+        	// reset the variables.
 		add = false;
 		mul = false;
 		divv = false;
 		sub = false;
 		
-        // reset the output screen then outputs the result of computation.
+        	// reset the output screen then outputs the result of computation.
 		gtk_entry_set_text(GTK_ENTRY(box), "");
 		sprintf(output_buffer, "%.3f", result);
 		gtk_entry_set_text(GTK_ENTRY(box), output_buffer);
 
-        // reset the result variable that stores the result of computation.
+        	// reset the result variable that stores the result of computation.
 		result = 0.0;
 	}
-    // clears the buffer data, and clears the output screen.
+    	// clears the buffer data, and clears the output screen.
 	else{
 		if(clear_buffer){
 			memset(input_buffer,0,strlen(input_buffer));
 			clear_buffer = false;
-		}else{
+		}
+		else{
 			strncat(input_buffer,text, 1);
 		}
 		
-			strncat(output_buffer,text, 1);
-			gtk_entry_set_text(GTK_ENTRY(box), output_buffer);
+		strncat(output_buffer,text, 1);
+		gtk_entry_set_text(GTK_ENTRY(box), output_buffer);
 	}
-    // clears the stored data when user selects 'c'.
+    	
+	// clears the stored data when user selects 'c'.
 	if(strcmp("C",text)==0){
 
-        // reset textbox.
+        	// reset textbox.
 		gtk_entry_set_text(GTK_ENTRY(box), "");
 		memset(input_buffer,0,strlen(input_buffer));
 		memset(output_buffer,0,strlen(output_buffer));
 
-        // reset count.
+        	// reset count.
 		count = 0;
 		int x = sizeof(num)/sizeof(num[0]);
 		
-        // reset num array.
+        	// reset num array.
 		for(int i=0; i<x; i++){
 				num[i] = 0;
 		}
 
-        // reset variables
+        	// reset variables
 		add = false;
 		mul = false;
 		divv = false;
@@ -178,22 +182,22 @@ static void activate(GtkApplication *app, gpointer user_data) {
 
     // create calculator buttons. 
     widget.button[0] = gtk_button_new_with_label("0");
-	widget.button[1] = gtk_button_new_with_label("1");
-	widget.button[2] = gtk_button_new_with_label("2");
-	widget.button[3] = gtk_button_new_with_label("3");
-	widget.button[4] = gtk_button_new_with_label("4");
-	widget.button[5] = gtk_button_new_with_label("5");
-	widget.button[6] = gtk_button_new_with_label("6");
-	widget.button[7] = gtk_button_new_with_label("7");
-	widget.button[8] = gtk_button_new_with_label("8");
-	widget.button[9] = gtk_button_new_with_label("9");
-	widget.button[10] = gtk_button_new_with_label(".");
-	widget.button[11] = gtk_button_new_with_label("+");
-	widget.button[12] = gtk_button_new_with_label("-");
-	widget.button[13] = gtk_button_new_with_label("x");
-	widget.button[14] = gtk_button_new_with_label("/");
-	widget.button[15] = gtk_button_new_with_label("C");
-	widget.button[16] = gtk_button_new_with_label("=");
+    widget.button[1] = gtk_button_new_with_label("1");
+    widget.button[2] = gtk_button_new_with_label("2");
+    widget.button[3] = gtk_button_new_with_label("3");
+    widget.button[4] = gtk_button_new_with_label("4");
+    widget.button[5] = gtk_button_new_with_label("5");
+    widget.button[6] = gtk_button_new_with_label("6");
+    widget.button[7] = gtk_button_new_with_label("7");
+    widget.button[8] = gtk_button_new_with_label("8");
+    widget.button[9] = gtk_button_new_with_label("9");
+    widget.button[10] = gtk_button_new_with_label(".");
+    widget.button[11] = gtk_button_new_with_label("+");
+    widget.button[12] = gtk_button_new_with_label("-");
+    widget.button[13] = gtk_button_new_with_label("x");
+    widget.button[14] = gtk_button_new_with_label("/");
+    widget.button[15] = gtk_button_new_with_label("C");
+    widget.button[16] = gtk_button_new_with_label("=");
 
     // place the button widgets into specific positions (rows decending from the top)
 
@@ -204,49 +208,49 @@ static void activate(GtkApplication *app, gpointer user_data) {
 
     // 2nd row
     gtk_grid_attach(GTK_GRID(widget.grid),widget.button[7],0,2,1,1);
-	gtk_grid_attach(GTK_GRID(widget.grid),widget.button[8],1,2,1,1);
-	gtk_grid_attach(GTK_GRID(widget.grid),widget.button[9],2,2,1,1);
-	gtk_grid_attach(GTK_GRID(widget.grid),widget.button[13],3,2,1,1);
+    gtk_grid_attach(GTK_GRID(widget.grid),widget.button[8],1,2,1,1);
+    gtk_grid_attach(GTK_GRID(widget.grid),widget.button[9],2,2,1,1);
+    gtk_grid_attach(GTK_GRID(widget.grid),widget.button[13],3,2,1,1);
     
     // 3rd row
-	gtk_grid_attach(GTK_GRID(widget.grid),widget.button[4],0,3,1,1);
-	gtk_grid_attach(GTK_GRID(widget.grid),widget.button[5],1,3,1,1);
-	gtk_grid_attach(GTK_GRID(widget.grid),widget.button[6],2,3,1,1);
-	gtk_grid_attach(GTK_GRID(widget.grid),widget.button[12],3,3,1,1);
+    gtk_grid_attach(GTK_GRID(widget.grid),widget.button[4],0,3,1,1);
+    gtk_grid_attach(GTK_GRID(widget.grid),widget.button[5],1,3,1,1);
+    gtk_grid_attach(GTK_GRID(widget.grid),widget.button[6],2,3,1,1);
+    gtk_grid_attach(GTK_GRID(widget.grid),widget.button[12],3,3,1,1);
 
     // 4th row
-	gtk_grid_attach(GTK_GRID(widget.grid),widget.button[1],0,4,1,1);
-	gtk_grid_attach(GTK_GRID(widget.grid),widget.button[2],1,4,1,1);
-	gtk_grid_attach(GTK_GRID(widget.grid),widget.button[3],2,4,1,1);
-	gtk_grid_attach(GTK_GRID(widget.grid),widget.button[11],3,4,1,1);
+    gtk_grid_attach(GTK_GRID(widget.grid),widget.button[1],0,4,1,1);
+    gtk_grid_attach(GTK_GRID(widget.grid),widget.button[2],1,4,1,1);
+    gtk_grid_attach(GTK_GRID(widget.grid),widget.button[3],2,4,1,1);
+    gtk_grid_attach(GTK_GRID(widget.grid),widget.button[11],3,4,1,1);
 
     // 5th row (bottom)
-	gtk_grid_attach(GTK_GRID(widget.grid),widget.button[0],0,5,2,1);
-	gtk_grid_attach(GTK_GRID(widget.grid),widget.button[10],2,5,1,1);
-	gtk_grid_attach(GTK_GRID(widget.grid),widget.button[16],3,5,1,1);
+    gtk_grid_attach(GTK_GRID(widget.grid),widget.button[0],0,5,2,1);
+    gtk_grid_attach(GTK_GRID(widget.grid),widget.button[10],2,5,1,1);
+    gtk_grid_attach(GTK_GRID(widget.grid),widget.button[16],3,5,1,1);
 
     // connect signals to buttons.
     // this connects the 'clicked' signal of each button to calculate function.
-	g_signal_connect(widget.button[0],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[1],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[2],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[3],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[4],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[5],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[6],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[7],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[8],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[9],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[10],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[11],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[12],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[13],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[14],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[15],"clicked",G_CALLBACK(calculate), NULL);
-	g_signal_connect(widget.button[16],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[0],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[1],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[2],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[3],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[4],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[5],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[6],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[7],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[8],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[9],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[10],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[11],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[12],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[13],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[14],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[15],"clicked",G_CALLBACK(calculate), NULL);
+    g_signal_connect(widget.button[16],"clicked",G_CALLBACK(calculate), NULL);
 
     // makes all widgets visible.
-	gtk_widget_show_all(widget.window);
+    gtk_widget_show_all(widget.window);
 
 }
 
